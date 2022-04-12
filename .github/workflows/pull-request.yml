@@ -10,9 +10,9 @@ jobs:
   deploylambda:
     name: run checks
     runs-on: ubuntu-18.04
-    permissions:
-      id-token: write
-      contents: read
+    # permissions:
+    #   id-token: write
+    #   contents: read
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@v2
@@ -27,8 +27,8 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        # aws-region: us-east-1
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: us-east-1
+        # aws-region: ${{ secrets.AWS_REGION }}
 
     - name: deploy
       run: |
