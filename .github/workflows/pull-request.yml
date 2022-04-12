@@ -13,21 +13,29 @@ jobs:
   
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js '16'
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-        # cache: 'npm'
+      - uses: actions/checkout@v2
+      - name: Use Node.js '16'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          # cache: 'npm'
 
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: deploy
-      run: |
-        zip handler.zip handler.js
-        aws lambda update-function-code --function-name=test_Service --zip-file=file://handler.zip
+      - name: Upload Zip to S3
+        run: |
+            aws s3 cp ./csye6225-lambda-${{ github.sha }}.zip s3://${{ secrets.S3_BUCKET }}/
+
+      - name: Update Function Code
+        run: |
+            aws lambda update-function-code --function-name verify_email --s3-bucket ${{ secrets.S3_BUCKET }} --s3-key csye6225-lambda-${{ github.sha}}.zip
+
+      # - name: deploy
+      #   run: |
+      #     zip handler.zip handler.js
+      #     aws lambda update-function-code --function-name=test_Service --zip-file=file://handler.zip
