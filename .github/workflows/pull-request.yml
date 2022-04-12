@@ -29,8 +29,13 @@ jobs:
 
       - name: Upload Zip to S3
         run: |
-            aws s3 cp ./csye6225-lambda-${{ github.sha }}.zip s3://${{ secrets.S3_BUCKET }}/
-
+          aws deploy push \
+          --application-name csye6225-webapp \
+          --description "Latest revision for csye6225-webapp-${{ github.sha }}" \
+          --ignore-hidden-files \
+          --s3-location s3://${{ secrets.S3_BUCKET }}/csye6225-webapp-${{ github.sha }}.zip \
+          --source .
+          
       - name: Update Function Code
         run: |
             aws lambda update-function-code --function-name verify_email --s3-bucket ${{ secrets.S3_BUCKET }} --s3-key csye6225-lambda-${{ github.sha}}.zip
