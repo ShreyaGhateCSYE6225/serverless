@@ -43,6 +43,6 @@ jobs:
 
       - name: Update Function Code
         run: |
-            aws lambda update-function-code --function-name mylambda --s3-bucket ${{ secrets.S3_BUCKET }}
+            aws lambda update-function-code --function-name mylambda --s3-bucket ${{ secrets.S3_BUCKET }} --s3-key csye6225-lambda-${{ github.sha}}.zip
 
      
