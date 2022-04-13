@@ -22,6 +22,7 @@ const { profileEnd } = require("console");
 var ses = new aws.SES({ region: "us-east-1" });
 const dynamoDBTable = new aws.DynamoDB.DocumentClient({ region: "us-east-1" });
 const crypto = require("crypto");
+
 exports.SesSendEmail =  (event, context, callback) => {
     let message = event.Records[0].Sns.Message;
     let msgJSON = JSON.parse(message);
