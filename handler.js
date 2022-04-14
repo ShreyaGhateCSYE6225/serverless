@@ -1,22 +1,3 @@
-// 'use strict';
-
-// module.exports.hello = async (event) => {
-//   return {
-//     statusCode: 200,
-//     body: JSON.stringify(
-//       {
-//         message: 'Go Serverless v1.0! Your function executed successfully!',
-//         input: event,
-//       },
-//       null,
-//       2
-//     ),
-//   };
-
-//   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-//   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-// };
-
 var aws = require("aws-sdk");
 const { profileEnd } = require("console");
 var ses = new aws.SES({ region: "us-east-1" });
@@ -68,9 +49,17 @@ exports.SesSendEmail =  (event, context, callback) => {
                                 },
                                 Message: {
                                     Body: {
-                                        Text: {
-                                            Data: "Hello! Please click this link to verify your email address (Valid for 5 minutes)" - "http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token
-                                        }
+                                        // Text: {
+                                        //     Data: "Hello! Please click this link to verify your email address (Valid for 5 minutes) - "+"http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token
+                                        // }
+                                        Html: {
+                                            Charset: "UTF-8",
+                                            Data: `<h3>Hi ${username}!</h3><br/>
+                                            <p>Please click on this link to verify your email address and be able to access more services. <b>Remember the link is valid for only 5 minutes</b></p><br/>
+                                            <p>"http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token</em></p><br/>
+                                            <p>Best,<br/>
+                                            Team CSYE-6225 Prod, Shreya Ghate</p>`
+                                            },
                                     },
                                     Subject: {
                                         Data: "You are one step closer to access your favourite APIs!"
