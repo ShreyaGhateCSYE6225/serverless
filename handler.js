@@ -15,6 +15,7 @@ exports.SesSendEmail =  (event, context, callback) => {
     };
     dynamoDBTable.get(eParams, function (error, code) {
         var codeJS = JSON.stringify(code);
+        
         if (error) {
             console.log("Error",error);
         }
@@ -43,6 +44,9 @@ exports.SesSendEmail =  (event, context, callback) => {
                             let username = msgJSON.Email;
                             console.log('username', username);
                             console.log('token', token);
+                            function email(){	
+                                window.location.href = "http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token;
+                            }
                             var cParams = {
                                 Destination: {
                                     ToAddresses: [username]
@@ -56,7 +60,7 @@ exports.SesSendEmail =  (event, context, callback) => {
                                             Charset: "UTF-8",
                                             Data: `<h3>Hi ${username}!</h3><br/>
                                             <p>Please click on this link to verify your email address and be able to access more services. <b>Remember the link is valid for only 5 minutes</b></p><br/>
-                                            <p>"http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token</em></p><br/>
+                                            <a onclick="email();"></a><br/>
                                             <p>Best,<br/>
                                             Team CSYE-6225 Prod, Shreya Ghate</p>`
                                             },
