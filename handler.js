@@ -54,17 +54,20 @@ exports.SesSendEmail =  (event, context, callback) => {
                                         Html: {
                                             Charset: "UTF-8",
                                             Data: `<h3>Hi ${username}!</h3><br/>
-                                            <p>Please click on this link to verify your email address and be able to access more services. <b>Remember this link is valid for only 5 minutes</b></p><br/>`
-                                        },
-                                        Text: {
-                                            Data: "http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token
-                                        },
-                                        Html: {
-                                            Charset: "UTF-8",
-                                            Data: `
+                                            <p>Please click on this link to verify your email address and be able to access more services. <b>Remember the link is valid for only 5 minutes</b></p><br/>
+                                            <p><em> $\{"http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token\}</em>
                                             <p>Best,<br/>
                                             Team CSYE-6225 Prod, Shreya Ghate</p>`
                                         },
+                                        // Text: {
+                                        //     Data: "http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token
+                                        // },
+                                        // Html: {
+                                        //     Charset: "UTF-8",
+                                        //     Data: `
+                                        //     <p>Best,<br/>
+                                        //     Team CSYE-6225 Prod, Shreya Ghate</p>`
+                                        // },
                                     },
                                     Subject: {
                                         Data: "You are one step closer to access your favourite APIs!"
