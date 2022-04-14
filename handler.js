@@ -69,11 +69,11 @@ exports.SesSendEmail =  (event, context, callback) => {
                                 Message: {
                                     Body: {
                                         Text: {
-                                            Data: "http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token
+                                            Data: "Hello! Please click this link to verify your email address (Valid for 5 minutes)" - "http://prod.shreyaghate.me/v1/verifyUserEmail?email="+username+"&token="+token
                                         }
                                     },
                                     Subject: {
-                                        Data: "Please click this link to verify your email address (Valid for 5 minutes)"
+                                        Data: "You are one step closer to access your favourite APIs!"
                                     }
                                 },
                                 Source: "csye6225-spring22@prod.shreyaghate.me"
